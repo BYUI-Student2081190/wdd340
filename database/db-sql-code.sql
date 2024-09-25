@@ -240,3 +240,14 @@ VALUES   (
     'White',
     5
   );
+
+-- Update the GM Hammer data in the `inventory` table
+UPDATE public.inventory
+SET inv_description = replace(inv_description, 'the small interiors', 'a huge interior')
+WHERE inv_id = 10;
+
+-- Update the data for inv_image and inv_thumbnail in the `inventory` table
+UPDATE public.inventory
+SET
+	inv_image = replace(inv_image, '/images', '/images/vehicles'),
+	inv_thumbnail = replace(inv_thumbnail, '/images', '/images/vehicles');
