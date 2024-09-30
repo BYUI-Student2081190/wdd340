@@ -114,6 +114,12 @@ nav ul li
   text-align: center;
 }
 
+nav ul li a
+{
+  color: #ffffff;
+  text-decoration: none;
+}
+
 #homeFlex
 {
     display: flex;
