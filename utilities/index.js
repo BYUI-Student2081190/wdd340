@@ -37,7 +37,7 @@ Util.buildClassificationGrid = async function(data){
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
       + 'details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
+      +' on WDD Motors" /></a>'
       grid += '<div class="namePrice">'
       grid += '<hr />'
       grid += '<h2>'
@@ -53,6 +53,52 @@ Util.buildClassificationGrid = async function(data){
     grid += '</ul>'
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
+/* **************************************
+* Build the vehicle view HTML
+* ************************************ */
+Util.buildVehicleGrid = async function (vehicle){
+  let grid
+  if(vehicle != null){
+    grid = '<div id="inventory-view">'
+    grid += '<div class="inventory-view-sec">'
+    grid += '<h2>'
+    grid += vehicle.inv_year + ' ' + vehicle.inv_make
+    + ' ' + vehicle.inv_model
+    grid += '</h2>'
+    grid += '<img src="' + vehicle.inv_image + '"'
+    + ' alt="Image of' + vehicle.inv_make + ' '
+    + vehicle.inv_model + ' on WDD Motors"/>'
+    grid += '</div>'
+    grid += '<ul class="inventory-view-sec">'
+    grid += '<li>'
+    grid += '<h3>' + vehicle.inv_make + ' '
+    + vehicle.inv_model
+    grid += '</h3>'
+    grid += '</li>'
+    grid += '<li>'
+    grid += '<p><strong>Price: $</strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_price)
+    grid += '</p>'
+    grid += '</li>'
+    grid += '<li>' 
+    grid += '<p><strong>Description:</strong> ' + vehicle.inv_description
+    grid += '</p>'
+    grid += '</li>'
+    grid += '<li>' 
+    grid += '<p><strong>Color:</strong> '+ vehicle.inv_color
+    grid += '</p>'
+    grid += '</li>'
+    grid += '<li>' 
+    grid += '<p><strong>Miles:</strong> ' + vehicle.inv_miles.toLocaleString('en-US')
+    grid += '</p>'
+    grid += '</li>' 
+    grid += '</ul>'
+    grid += '</div>'
+  } else {
+    grid += '<p class="notice"> Sorry, this vehicle cannot be found.'
   }
   return grid
 }
