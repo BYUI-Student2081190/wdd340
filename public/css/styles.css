@@ -4,8 +4,10 @@
 *:after {
   box-sizing: border-box;
 }
+
 /******* Large View of Page ***************/
-@media screen and (min-width: 690px){
+@media screen and (min-width: 915px){
+  /******* Home View CSS ***************/
     div#homeFlex
     {
       flex-direction: row;
@@ -25,8 +27,24 @@
     {
       font-size: 1.17em;
     }
-  
+
+    /******* Inventory View CSS ***************/
+    ul#inv-display
+    {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    /******* Vehicle View CSS ***************/
+    div#inventory-view
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
 }
+
 /******* Mobile View of Page ***************/
 h1
 {
@@ -120,6 +138,7 @@ nav ul li a
   text-decoration: none;
 }
 
+/******* Home View CSS ***************/
 #homeFlex
 {
     display: flex;
@@ -215,4 +234,73 @@ div.upbackground div
 div.reviews ul li
 {
   margin-top: 1em;
+}
+
+/******* Inventory View CSS ***************/
+#inv-display
+{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  list-style-type: none;
+  padding-right: 40px;
+}
+
+#inv-display li
+{
+  border: 3px solid #e2e2e2;
+  border-radius: 3px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+#inv-display img
+{
+  width: 100%;
+  border-radius: 3px;
+}
+
+.namePrice
+{
+  text-align: center;
+  padding: 0.5em;
+}
+
+.namePrice hr
+{
+  border: 2px soild #e2e2e2;
+}
+
+/******* Vehicle View CSS ***************/
+#inventory-view
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+ul.inventory-view-sec
+{
+  padding: 5px;
+  border: 1px solid #929292;
+}
+
+.inventory-view-sec
+{
+  list-style: none;
+  margin: 1em 1em 1em 1em;
+}
+
+.inventory-view-sec img
+{
+  width: 100%;
+}
+
+.inventory-view-sec li:nth-child(even)
+{
+  background-color: #e2e2e2;
 }
