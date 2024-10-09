@@ -10,11 +10,14 @@
 
 <%# Form Content %>
 <div id="login">
-    <form>
-        <p>Email: </p>
-        <input type="email" name="account_email"/>
-        <p>Password: </p>
-        <input type="password" name="account_password"/>
+    <form class="siteForms">
+        <label>Email: </label>
+        <input type="email" name="account_email" required placeholder="Enter Email"/>
+        <div class="passwordFormat">
+            <label>Password: </label>
+            <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+            <input type="password" name="account_password" required placeholder="Enter Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"/>
+        </div>
         <input type="submit" name="login_submit" value="LOGIN"/>
     </form>
     <p>No account? <a href="../../account/registration">Sign-up</a></p>
