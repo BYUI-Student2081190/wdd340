@@ -8,6 +8,15 @@
 <%# Flash Message %>
 <%- messages() %>
 
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
 <%# Form Content %>
 <div id="register">
     <form class="siteForms" action="/account/register" method="post">
