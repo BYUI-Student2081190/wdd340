@@ -1,0 +1,21 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# Form Content %>
+<div id="login">
+    <form>
+        <p>Email: </p>
+        <input type="email" name="account_email">
+        <p>Password: </p>
+        <input type="password" name="account_password">
+        <input type="submit" name="login_submit" value="LOGIN">
+    </form>
+    <p>No account? <a href="../../account/registration">Sign-up</a></p>
+</div>
