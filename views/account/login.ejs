@@ -8,11 +8,20 @@
 <%# Flash Message %>
 <%- messages() %>
 
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
 <%# Form Content %>
 <div id="login">
-    <form class="siteForms">
+    <form id="login_form" class="siteForms" action="/account/login" method="post">
         <label>Email: </label>
-        <input type="email" name="account_email" required placeholder="Enter Email"/>
+        <input type="email" name="account_email" required placeholder="Enter Email" value="<%= locals.account_email %>"/>
         <div class="passwordFormat">
             <label>Password: </label>
             <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
@@ -20,5 +29,5 @@
         </div>
         <input type="submit" name="login_submit" value="LOGIN"/>
     </form>
-    <p>No account? <a href="../../account/registration">Sign-up</a></p>
+    <p>No account? <a href="../../account/register">Sign-up</a></p>
 </div>
