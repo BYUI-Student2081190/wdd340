@@ -1,0 +1,33 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<%# Form Content %>
+<div id="addClassif">
+    <form id="addClassif_form" class="siteForms" action="/inv/add-classification" method="post">
+        <label for="classification_name">Classification Name: </label>
+        <input type="text" name="classification_name" required pattern="[a-zA-Z]" placeholder="Enter Classification"/>
+        <span>Must only be alphabetical characters, must be one word, and cannot already exsist in the database.</span>
+        <input type="submit" name="addClassif_submit" value="ADD">
+    </form>
+</div>
+
+<%# Go back to management %>
+<div class="goBack">
+    <a href="/inv/">Go Back</a>
+</div>
