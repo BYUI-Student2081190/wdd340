@@ -1,0 +1,50 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<%# Form Content %>
+<div id="addInventory">
+    <form id="addInventory_form" class="siteForms" action="/inv/add-inventory" method="post">
+        <label for="classification_id">Classification: </label>
+        <%- classificationList %>
+        <label for="inv_make">Make: </label>
+        <input type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>"/>
+        <label for="inv_model">Model: </label>
+        <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>"/>
+        <label for="inv_year">Year: </label>
+        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" maxlength="4"/>
+        <label for="inv_description">Description: </label>
+        <textarea name="inv_description" required placeholder="Enter Description"><%= locals.inv_description %></textarea>
+        <label for="inv_image">Image Path: </label>
+        <input type="text" name="inv_image" required value="/images/vehicles/no-image.png"/>
+        <label for="inv_thumbnail">Thumbnail Path: </label>
+        <input type="text" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png"/>
+        <label for="inv_price">Price: </label>
+        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" pattern="[0-9]"/>
+        <label for="inv_miles">Miles: </label>
+        <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>" pattern="[0-9]"/>
+        <label for="inv_color">Color: </label>
+        <input type="text" name="inv_color" required placeholder="Enter Color" value="<%= locals.inv_color %>"/>
+        <input type="submit" value="ADD"/>
+    </form>
+</div>
+
+<%# Go back to management %>
+<div class="goBack">
+    <a href="/inv/">Go Back</a>
+</div>
