@@ -18,7 +18,7 @@
 <% } %>
 
 <%# Form Content %>
-<div id="login">
+<div id="login" class="formDiv">
     <form id="login_form" class="siteForms" action="/account/login" method="post">
         <label>Email: </label>
         <input type="email" name="account_email" required placeholder="Enter Email" value="<%= locals.account_email %>"/>
@@ -30,9 +30,8 @@
             </div>
             <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
         </div>
-        <input type="submit" name="login_submit" value="LOGIN"/>
+        <input type="submit" class="submitButton" name="login_submit" value="LOGIN"/>
     </form>
-    <p>No account? <a href="../../account/register">Sign-up</a></p>
 </div>
 
-<%# Show Password Code %>
+<p>No account? <a href="../../account/register">Sign-up</a></p>

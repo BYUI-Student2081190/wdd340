@@ -18,7 +18,7 @@
 <% } %>
 
 <%# Form Content %>
-<div id="addInventory">
+<div id="addInventory" class="formDiv">
     <form id="addInventory_form" class="siteForms" action="/inv/add-inventory" method="post">
         <label for="classification_id">Classification: </label>
         <%- classificationList %>
@@ -40,7 +40,7 @@
         <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>" pattern="[0-9]"/>
         <label for="inv_color">Color: </label>
         <input type="text" name="inv_color" required placeholder="Enter Color" value="<%= locals.inv_color %>"/>
-        <input type="submit" value="ADD"/>
+        <input type="submit" class="submitButton" name="addInventorySubmit" value="ADD"/>
     </form>
 </div>
 

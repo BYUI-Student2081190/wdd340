@@ -18,7 +18,7 @@
 <% } %>
 
 <%# Form Content %>
-<div id="register">
+<div id="register" class="formDiv">
     <form class="siteForms" action="/account/register" method="post">
         <label for="account_firstname">First Name: </label>
         <input type="text" name="account_firstname" required placeholder="Enter First Name" value="<%= locals.account_firstname %>"/>
@@ -34,6 +34,8 @@
             </div>
             <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
         </div>
-        <input type="submit" name="login_submit" value="REGISTER"/>
+        <input type="submit" class="submitButton" name="register_submit" value="REGISTER"/>
     </form>
 </div>
+
+<a href="../account/login">Go Back</a>

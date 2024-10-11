@@ -6,7 +6,13 @@
 }
 
 /******* Large View of Page ***************/
-@media screen and (min-width: 915px){
+@media screen and (min-width: 915px)
+{
+  /***** Shared Variables **************/
+  form.siteForms
+  {
+    width: 50%;
+  }
   /******* Home View CSS ***************/
     div#homeFlex
     {
@@ -48,43 +54,140 @@
 /******* Mobile View of Page ***************/
 h1
 {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h2
 {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h3
 {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 p
 {
-  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
 }
 
 li
 {
-  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
 }
 
 a
 {
-  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
 }
 
 .pwButton
 {
   display: block;
   border: 2px solid #000000;
+  background-color: #F0F0F0;
+  color: #000000;
   border-radius: 5px;
   padding: 2px;
+  margin-left: 0;
   font-size: small;
-  width: 7em;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+  width: 8em;
   text-align: center;
+}
+
+.pwButton:hover
+{
+  background-color: #dedede;
+}
+
+.notice
+{
+  list-style: none;
+  color: #ff0000;
+  font-style: italic;
+  font-size: medium;
+  padding-left: 0;
+}
+
+.siteForms
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #929292;
+  border-radius: 10px;
+  background-color: #221d52;
+  color: #e2e2e2;
+}
+
+.formDiv
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.siteForms label
+{
+  margin-top: 10px;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.siteForms input
+{
+  margin-top: 5px;
+  width: 80%;
+  height: 2rem;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.siteForms select
+{
+  margin-top: 5px;
+  width: 80%;
+  height: 2rem;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.siteForms textarea
+{
+  margin-top: 5px;
+  width: 80%;
+  height: 10em;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.siteForms span
+{
+  margin-top: 10px;
+  font-size: small;
+}
+
+.passwordFormat
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.passwordFormat div
+{
+  display: flex;
+  flex-direction: column;
+}
+
+input.submitButton
+{
+  width: 100px;
+  margin-top: 30px;
+}
+
+#management div
+{
+  margin-bottom: 2rem;
 }
 
 body
