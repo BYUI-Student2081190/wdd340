@@ -20,27 +20,27 @@
 <%# Form Content %>
 <div id="addInventory" class="formDiv">
     <form id="addInventory_form" class="siteForms" action="/inv/add-inventory" method="post">
-        <label for="classification_id">Classification: </label>
+        <label>Classification: </label>
         <%- classificationList %>
-        <label for="inv_make">Make: </label>
-        <input type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>"/>
-        <label for="inv_model">Model: </label>
-        <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>"/>
-        <label for="inv_year">Year: </label>
-        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" maxlength="4"/>
-        <label for="inv_description">Description: </label>
+        <label>Make: </label>
+        <input type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>">
+        <label>Model: </label>
+        <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>">
+        <label>Year: </label>
+        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>">
+        <label>Description: </label>
         <textarea name="inv_description" required placeholder="Enter Description"><%= locals.inv_description %></textarea>
-        <label for="inv_image">Image Path: </label>
-        <input type="text" name="inv_image" required value="/images/vehicles/no-image.png"/>
-        <label for="inv_thumbnail">Thumbnail Path: </label>
-        <input type="text" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png"/>
-        <label for="inv_price">Price: </label>
-        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" pattern="[0-9]"/>
-        <label for="inv_miles">Miles: </label>
-        <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>" pattern="[0-9]"/>
-        <label for="inv_color">Color: </label>
-        <input type="text" name="inv_color" required placeholder="Enter Color" value="<%= locals.inv_color %>"/>
-        <input type="submit" class="submitButton" name="addInventorySubmit" value="ADD"/>
+        <label>Image Path: </label>
+        <input type="text" name="inv_image" required value="/images/vehicles/no-image.png">
+        <label>Thumbnail Path: </label>
+        <input type="text" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png">
+        <label>Price: </label>
+        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>">
+        <label>Miles: </label>
+        <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>">
+        <label>Color: </label>
+        <input type="text" name="inv_color" required placeholder="Enter Color" value="<%= locals.inv_color %>">
+        <input type="submit" class="submitButton" name="addInventorySubmit" value="ADD">
     </form>
 </div>
 
