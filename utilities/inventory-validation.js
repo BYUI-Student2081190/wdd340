@@ -83,7 +83,13 @@ validate.inventoryRules = () => {
         .isNumeric()
         .withMessage("Year must be a number.")
         .isLength({min: 4, max: 4})
-        .withMessage("A Year must be at least 4 numbers long."),
+        .withMessage("A Year must be at least 4 numbers long.")
+        .custom(async (inv_year) => {
+            const isValid = await invModel.checkIfNumberInRage(inv_year, 1890, 2100)
+            if (!isValid) {
+                throw new Error("Year must be between 1890 and 2100.")
+            }
+        }),
 
         // inv_description
         body("inv_description")
@@ -131,7 +137,13 @@ validate.inventoryRules = () => {
         .notEmpty()
         .withMessage("Please enter a Price.")
         .isNumeric()
-        .withMessage("Price must be a whole number not a decimal or string."),
+        .withMessage("Price must be a whole number not a decimal or string.")
+        .custom(async (inv_price) => {
+            const isValid = await invModel.checkIfNumberInRage(inv_price, 0, 999999999)
+            if (!isValid) {
+                throw new Error("Price must be between 0 and 999,999,999.")
+            }
+        }),
 
         // inv_miles
         body("inv_miles")
@@ -140,7 +152,13 @@ validate.inventoryRules = () => {
         .notEmpty()
         .withMessage("Please enter the Miles.")
         .isNumeric()
-        .withMessage("Miles must be a whole number not a decimal or string."),
+        .withMessage("Miles must be a whole number not a decimal or string.")
+        .custom(async (inv_miles) => {
+            const isValid = await invModel.checkIfNumberInRage(inv_miles, 0, 999999999)
+            if (!isValid) {
+                throw new Error("Miles must be between 0 and 999,999,999.")
+            }
+        }),
 
         // inv_color
         body("inv_color")

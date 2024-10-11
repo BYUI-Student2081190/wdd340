@@ -91,6 +91,19 @@ async function checkIfValidPath(imagePath) {
 }
 
 /* ***************************
+ *  Check to see if number is in range.
+ * ************************** */
+async function checkIfNumberInRage(number, min, max)
+{
+  // Return true if it works out, false if not
+  if (number >= min && number <= max) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/* ***************************
  *  Add a new item to the Inventory
  * ************************** */
 async function addItem (classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) {
@@ -102,4 +115,4 @@ async function addItem (classification_id, inv_make, inv_model, inv_year, inv_de
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDataByInventoryId, addClassification, checkExistingClassification, checkIfPathIsImagePath, checkIfValidPath, addItem};
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDataByInventoryId, addClassification, checkExistingClassification, checkIfPathIsImagePath, checkIfValidPath, addItem, checkIfNumberInRage};

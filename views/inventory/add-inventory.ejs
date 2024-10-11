@@ -27,7 +27,7 @@
         <label>Model: </label>
         <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>">
         <label>Year: </label>
-        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>">
+        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" min="1890" max="2100">
         <label>Description: </label>
         <textarea name="inv_description" required placeholder="Enter Description"><%= locals.inv_description %></textarea>
         <label>Image Path: </label>
@@ -35,9 +35,9 @@
         <label>Thumbnail Path: </label>
         <input type="text" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png">
         <label>Price: </label>
-        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>">
+        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" min="0" max="9999999">
         <label>Miles: </label>
-        <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>">
+        <input type="number" name="inv_miles" required placeholder="Enter Miles" value="<%= locals.inv_miles %>" min="0" max="9999999">
         <label>Color: </label>
         <input type="text" name="inv_color" required placeholder="Enter Color" value="<%= locals.inv_color %>">
         <input type="submit" class="submitButton" name="addInventorySubmit" value="ADD">

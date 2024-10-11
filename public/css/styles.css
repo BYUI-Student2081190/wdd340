@@ -82,6 +82,16 @@ a
   font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
 }
 
+input:required:invalid, input:focus:invalid 
+{
+  background-color: #f77a7a;
+}
+
+input:required:valid 
+{
+  background-color: #5cff5c;
+}
+
 .pwButton
 {
   display: block;
