@@ -1,0 +1,48 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<%# Form Content %>
+<div id="addInventory" class="formDiv">
+    <form id="updateForm" class="siteForms" action="/inv/delete" method="post">
+        <label>Make: </label>
+        <input type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>" readonly>
+        <label>Model: </label>
+        <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>" readonly>
+        <label>Year: </label>
+        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" min="1890" max="2100" readonly>
+        <label>Price: </label>
+        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" min="0" max="9999999" readonly>
+        <p>Confirm Deletion - The delete is permanent and connot be undone.</p>
+        <div id="deleteButtons">
+            <input type="submit" class="submitButton" name="addInventorySubmit" value="Delete">
+            <a id="deleteCancel" href="/inv/">Cancel</a>
+        </div>
+        <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
+    </form>
+</div>
+
+<%# Go back to management %>
+<div class="goBack">
+    <a href="/inv/">Go Back</a>
+</div>
+
+<%# Scripts %>
+<script src="../../js/inv-update.js"></script>
