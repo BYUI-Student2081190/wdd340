@@ -5,6 +5,8 @@ const accController = require("../controllers/accountController")
 const utilities = require("../utilities/")
 const regValidate = require("../utilities/account-validation")
 
+// Route to build default view - account management view
+router.get("/", utilities.checkLogin, utilities.handleErrors(accController.buildAccountManagement));
 // Route to build account - utilities will automatically handle any errors that creep up
 router.get("/login", utilities.handleErrors(accController.buildLogin));
 // Route to build registration
@@ -22,9 +24,7 @@ router.post(
     "/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    (req, res) => {
-      res.status(200).send('login process')
-    }
+    utilities.handleErrors(accController.accountLogin)
 );
 
 module.exports = router;

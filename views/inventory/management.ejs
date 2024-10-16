@@ -10,12 +10,19 @@
 
 <%# Links %>
 <div id="management">
-    <div>
-        <h3>Edit Inventory Items</h3>
-        <a href="../../inv/add-inventory">Add Inventory Item</a>
+    <div id="invManagementCreate">
+        <h2>Create New Inventory</h2>
+        <a href="../../inv/add-classification">Create New Classification</a>
+        <a href="../../inv/add-inventory">Create New Inventory Item</a>
     </div>
     <div>
-        <h3>Edit Classifications</h3>
-        <a href="../../inv/add-classification">Add Classification</a>
+        <h2>Manage Inventory</h2>
+        <p>Select a classification list to view classification content:</p>
+        <%- classificationSelect %>
+        <table id="inventoryDisplay"></table>
+        <noscript>JavaScript must be enabled to use this page.</noscript>
     </div>
 </div>
+
+<%# script %>
+<script src="../../js/inventory.js"></script> 

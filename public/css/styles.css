@@ -200,6 +200,17 @@ input.submitButton
   margin-bottom: 2rem;
 }
 
+#invManagementCreate
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#invManagementCreate a
+{
+  margin-top: 10px;
+}
+
 body
 {
   padding: 1% 10%;
