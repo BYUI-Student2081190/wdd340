@@ -156,6 +156,31 @@ Util.checkJWTToken = (req, res, next) => {
 }
 
 /* ****************************************
+* Middleware to check account type using the token
+**************************************** */
+Util.checkAccountType = (req, res, next) => {
+  // Get the current jwt cookie
+  const token = req.cookies.jwt
+
+  try{
+    // Verify that the token is a valid token and it exsists
+    const accountData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+
+    if (accountData.account_type === 'Admin' || accountData.account_type === 'Employee') {
+      next() // We are good so the route can just continue
+    } else { // If you don't have permission sign in as the proper account_type
+      req.flash("notice", "Access denied, please log in as 'Admin' or 'Employee'.")
+      res.redirect("/account/login")
+    }
+  } catch (err) {
+    // Redirect to login because token is not valid, or missing meaning they need to log back in
+    req.flash("notice", "Session expired. Please log in.")
+    res.clearCookie("jwt")
+    res.redirect("/account/login")
+  }
+}
+
+/* ****************************************
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
