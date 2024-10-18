@@ -126,7 +126,7 @@ invCont.addInventoryItem = async function (req, res) {
   )
 
   if (inventoryResult) {
-    const itemName = inventoryResult.inv_make + " " + inventoryResult.inv_model
+    const itemName = inv_make + " " + inv_model
     req.flash("notice", `Congradulations, ${itemName} was successfully added.`)
     res.redirect("/inv/")
   } else {
