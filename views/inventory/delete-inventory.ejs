@@ -20,14 +20,14 @@
 <%# Form Content %>
 <div id="addInventory" class="formDiv">
     <form id="updateForm" class="siteForms" action="/inv/delete" method="post">
-        <label>Make: </label>
-        <input type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>" readonly>
-        <label>Model: </label>
-        <input type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>" readonly>
-        <label>Year: </label>
-        <input type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" min="1890" max="2100" readonly>
-        <label>Price: </label>
-        <input type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" min="0" max="9999999" readonly>
+        <label for="inv_make">Make: </label>
+        <input id="inv_make" type="text" name="inv_make" required placeholder="Enter Make" value="<%= locals.inv_make %>" readonly>
+        <label for="inv_model">Model: </label>
+        <input id="inv_model" type="text" name="inv_model" required placeholder="Enter Model" value="<%= locals.inv_model %>" readonly>
+        <label for="inv_year">Year: </label>
+        <input id="inv_year" type="number" name="inv_year" required placeholder="Enter Year" value="<%= locals.inv_year %>" min="1890" max="2100" readonly>
+        <label for="inv_price">Price: </label>
+        <input id="inv_price" type="number" name="inv_price" required placeholder="Enter Price" value="<%= locals.inv_price %>" min="0" max="9999999" readonly>
         <p>Confirm Deletion - The delete is permanent and connot be undone.</p>
         <input type="submit" class="submitButton" name="addInventorySubmit" value="Delete">
         <input type="hidden" name="inv_id"

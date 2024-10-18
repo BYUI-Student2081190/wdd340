@@ -20,8 +20,8 @@
 <%# Form Content %>
 <div id="addClassif" class="formDiv">
     <form id="addClassif_form" class="siteForms" action="/inv/add-classification" method="post">
-        <label>Classification Name: </label>
-        <input type="text" name="classification_name" required placeholder="Enter Classification">
+        <label for="classification_name">Classification Name: </label>
+        <input id="classification_name" type="text" name="classification_name" required placeholder="Enter Classification">
         <span>Must only be alphabetical characters, must be one word, and cannot already exsist in the database.</span>
         <input type="submit" class="submitButton" name="addClassif_submit" value="ADD">
     </form>
