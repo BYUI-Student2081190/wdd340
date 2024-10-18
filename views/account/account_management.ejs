@@ -19,6 +19,23 @@
 
 <%# Page Content %>
 <div id="accountManagement">
-    <h2>Welcome</h2>
-    <h3>You're logged in</h3>
+    <h2>Welcome <%= locals.accountData.account_firstname %></h2>
+    <div class="accountManDiv">
+        <h3>Account Management: </h3>
+        <%# Allows the user to view their updated information %>
+        <div>
+            <p><strong>Current Account Info: </strong></p>
+            <p>Firstname: <%= locals.accountData.account_firstname %></p>
+            <p>Lastname: <%= locals.accountData.account_lastname %></p>
+            <p>Email: <%= locals.accountData.account_email %></p>
+        </div>
+        <p><strong>Update Account Information: </strong></p>
+        <a href="/account/update-information/<%= locals.accountData.account_id %>">Update Information</a>
+    </div>
+    <% if (locals.accountData.account_type === 'Admin' || locals.accountData.account_type === 'Employee') { %>
+        <div class="accountManDiv">
+            <h3>Inventory Management: </h3>
+            <p><a href="/inv/">Edit Inventory</a></p>
+        </div>
+    <% } %>
 </div>
