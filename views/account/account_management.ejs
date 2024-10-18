@@ -29,7 +29,7 @@
             <p>Lastname: <%= locals.accountData.account_lastname %></p>
             <p>Email: <%= locals.accountData.account_email %></p>
         </div>
-        <p><strong>Update Account Information: </strong></p>
+        <p id="updateAccountInfoTag"><strong>Update Account Information: </strong></p>
         <a href="/account/update-information/<%= locals.accountData.account_id %>">Update Information</a>
     </div>
     <% if (locals.accountData.account_type === 'Admin' || locals.accountData.account_type === 'Employee') { %>

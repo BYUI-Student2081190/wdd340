@@ -13,6 +13,10 @@
   {
     width: 50%;
   }
+  nav ul#navigation
+  {
+    flex-direction: row;
+  }
   /******* Home View CSS ***************/
     div#homeFlex
     {
@@ -133,6 +137,20 @@ input:required:valid
   color: #e2e2e2;
 }
 
+#updateAccount
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#updatePassword
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .formDiv
 {
   display: flex;
@@ -191,7 +209,7 @@ input:required:valid
 
 input.submitButton
 {
-  width: 100px;
+  width: 150px;
   margin-top: 30px;
 }
 
@@ -209,6 +227,33 @@ input.submitButton
 #invManagementCreate a
 {
   margin-top: 10px;
+}
+
+#inventoryDisplay
+{
+  margin-top: 20px;
+}
+
+#inventoryDisplay a
+{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.accountManDiv
+{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.accountManDiv div
+{
+  margin-top: 40px;
+}
+
+#updateAccountInfoTag
+{
+  margin-top: 40px;
 }
 
 body
@@ -250,6 +295,7 @@ nav ul
 {
   display: flex;
   list-style: none;
+  flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
   height: 100%;
