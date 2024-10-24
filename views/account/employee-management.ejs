@@ -1,0 +1,34 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<%# This will show employees who do not have any job data and need some %>
+<div class="accountManDiv">
+    <h3>Add Job Data to Employee: </h3>
+    <%- needsJobData %>
+</div>
+<%# This will show all employees, and will allow the management to update, delete, and view job data %>
+<div class="accountManDiv">
+    <h3>Manage Employee Job Data: </h3>
+    <%- employeeJobData %>
+</div>
+
+<%# Go back to account-management %>
+<div class="goBack">
+    <a href="/account/">Go Back</a>
+</div>

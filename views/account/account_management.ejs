@@ -32,10 +32,22 @@
         <p id="updateAccountInfoTag"><strong>Update Account Information: </strong></p>
         <a href="/account/update-information/<%= locals.accountData.account_id %>">Update Information</a>
     </div>
+    <% if (locals.accountData.account_type === 'Employee') { %>
+        <div class="accountManDiv">
+            <h3>Job Information: </h3>
+            <p><a href="/account/view-employee/<%= locals.accountData.account_id %>">Job Information</a></p>
+        </div>
+    <% } %>
     <% if (locals.accountData.account_type === 'Admin' || locals.accountData.account_type === 'Employee') { %>
         <div class="accountManDiv">
             <h3>Inventory Management: </h3>
             <p><a href="/inv/">Edit Inventory</a></p>
+        </div>
+    <% } %>
+    <% if (locals.accountData.account_type === 'Admin') { %>
+        <div class="accountManDiv">
+            <h3>Employee Management: </h3>
+            <p><a href="/account/employee-management">Employee Management</a></p>
         </div>
     <% } %>
 </div>

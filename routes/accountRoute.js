@@ -15,6 +15,10 @@ router.get("/logout", utilities.handleErrors(accController.accountLogout));
 router.get("/register", utilities.handleErrors(accController.buildRegistration));
 // Route to update account view
 router.get("/update-information/:accountId", utilities.handleErrors(accController.buildAccountUpdate));
+// Route to view employee data
+router.get("/view-employee/:accountId", utilities.checkAccountType, utilities.handleErrors(accController.buildEmployeeDataView));
+// Route to employee management
+router.get("/employee-management", utilities.checkIfAdmin, utilities.handleErrors(accController.buildEmployeeManagement));
 
 // Process the registration data
 router.post(

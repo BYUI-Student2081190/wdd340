@@ -60,6 +60,43 @@ async function buildAccountUpdate(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver employee-management view
+* *************************************** */
+async function buildEmployeeManagement(req, res, next) {
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getEmployeeAccounts()
+  const employeeJobData = await accountModel.getEmployeeData()
+  let needsJobData = accountData
+  // Use join table to get this list
+  let hasJobData = await accountModel.getAllEmployeeDataByAccountId()
+
+  // Find those accounts that need employee data put into them
+  if (employeeJobData.length > 0) {
+    employeeJobData.forEach(employee => {
+      let find = employee.account_id
+      let removedObject = needsJobData.find(account => account.account_id === find)
+      // Now remove the object from the other array
+      let removeIndex = needsJobData.indexOf(removedObject)
+
+      needsJobData.splice(removeIndex, 1)
+    })
+  } // Else do nothing, because this case only happens if we have stuff in the table.
+
+  // Now call on utilities to set up the html for the view
+  const needsJobDataGrid = await utilities.buildNeedsJobData(needsJobData)
+  const hasJobDataGrid = await utilities.buildHasJobData(hasJobData)
+
+  // Now render the view
+  res.render("account/employee-management", {
+    title: "Employee Management",
+    nav,
+    errors: null,
+    needsJobData: needsJobDataGrid,
+    employeeJobData: hasJobDataGrid,
+  })
+}
+
+/* ****************************************
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
@@ -240,11 +277,10 @@ async function accountUpdatePassword(req, res) {
 *  Log out
 * *************************************** */
 async function accountLogout(req, res, next) {
-  let nav = await utilities.getNav()
   // Remove the cookie
   res.clearCookie("jwt")
   // Head back to the home page
   res.redirect("/")
 }
 
-module.exports = {buildLogin, buildRegistration, buildAccountManagement, buildAccountUpdate, registerAccount, accountLogin, accountUpdateInformation, accountUpdatePassword, accountLogout}
+module.exports = {buildLogin, buildRegistration, buildAccountManagement, buildAccountUpdate, registerAccount, accountLogin, accountUpdateInformation, accountUpdatePassword, accountLogout, buildEmployeeManagement}

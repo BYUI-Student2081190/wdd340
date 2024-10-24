@@ -26,9 +26,9 @@
 function buildInventoryList(data) {
     let inventoryDisplay = document.getElementById("inventoryDisplay");
     // Set up the labels
-    let dataTable = '<thread>';
+    let dataTable = '<thead>';
     dataTable += '<tr><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
-    dataTable += '</thread>';
+    dataTable += '</thead>';
     // Set up the table body
     dataTable += '<tbody>';
     // Iterate over all vehicles in the array and put each in a row 

@@ -98,4 +98,63 @@ async function updateAccountPassword(account_id, account_password) {
   }
 }
 
-module.exports = {registerAccount, updateAccountInfo, checkExistingEmail, getAccountByEmail, getAccountById, checkExistingEmailWithSameId, updateAccountPassword}
+/* *****************************
+*   Get accounts with the type Employee
+* *************************** */
+async function getEmployeeAccounts() {
+  try {
+    const sql = "SELECT * FROM public.account WHERE account_type = 'Employee'"
+    let data = await pool.query(sql)
+    return data.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Get employee data by account_id
+* *************************** */
+async function getEmployeeDataByAccountId(account_id) {
+  try {
+    const sql = 
+    `SELECT * FROM public.employee AS e
+    JOIN public.account AS a
+    ON e.account_id = a.account_id
+    WHERE e.account_id = $1`
+    let data = await pool.query(sql, [account_id])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Get all employee data by account_id
+* *************************** */
+async function getAllEmployeeDataByAccountId() {
+  try {
+    const sql = 
+      `SELECT * FROM public.employee AS e 
+      JOIN public.account AS a 
+      ON e.account_id = a.account_id`
+    let data = await pool.query(sql)
+    return data.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Get employee data
+* *************************** */
+async function getEmployeeData() {
+  try {
+    const sql = "SELECT * FROM public.employee"
+    let data = await pool.query(sql)
+    return data.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {registerAccount, updateAccountInfo, checkExistingEmail, getAccountByEmail, getAccountById, checkExistingEmailWithSameId, updateAccountPassword, getEmployeeAccounts, getEmployeeDataByAccountId, getEmployeeData, getAllEmployeeDataByAccountId}

@@ -124,6 +124,56 @@ Util.buildVehicleGrid = async function (vehicle){
   return grid
 }
 
+/* **************************************
+* Build the needsJobData view HTML
+* ************************************ */
+Util.buildNeedsJobData = async function (needsJobData) {
+  let needsJobGrid = ""
+  if (needsJobData.length > 0) {
+    needsJobGrid = '<table class="employeeTable">'
+    needsJobGrid += '<thead>'
+    needsJobGrid += '<tr><th>Employee</th><td>&nbsp;</td></tr>'
+    needsJobGrid += '</thead>'
+    needsJobGrid += '<tbody>'
+    // Iterate over all the accounts in the array and put each in a new row
+    needsJobData.forEach(function (account) {
+      needsJobGrid += `<tr><td>${account.account_firstname} ${account.account_lastname}</td>`
+      needsJobGrid += `<td><a href='/account/employee-add/${account.account_id}' title='Click to add employee data'>Add</a></td></tr>`
+    })
+    needsJobGrid += '</tbody>'
+    needsJobGrid += '</table>'
+  } else {
+    needsJobGrid += '<p class="notice">There are no employees who need job data at this moment.</p>'
+  }
+  return needsJobGrid
+}
+
+/* **************************************
+* Build the hasJobData view HTML
+* ************************************ */
+Util.buildHasJobData = async function (hasJobData) {
+  let hasJobGrid =""
+  if (hasJobData.length > 0) {
+    hasJobGrid = '<table class="employeeTable">'
+    hasJobGrid += '<thead>'
+    hasJobGrid += '<tr><th>Employee</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'
+    hasJobGrid += '</thead>'
+    hasJobGrid += '<tbody>'
+    // Iterate over all the accounts in the array and put each in a new row
+    hasJobData.forEach(function (account) {
+      hasJobGrid += `<tr><td>${account.account_firstname} ${account.account_lastname}</td>`
+      hasJobGrid += `<td><a href='/account/employee-view/${account.account_id}' title='Click to view employee data'>Add Data</a></td>`
+      hasJobGrid += `<td><a href='/account/employee-edit/${account.account_id}' title='Click to edit employee data'>Add Data</a></td>`
+      hasJobGrid += `<td><a href='/account/employee-delete/${account.account_id}' title='Click to delete employee data'>Add Data</a></td></tr>`
+    })
+    hasJobGrid += '</tbody>'
+    hasJobGrid += '</table>'
+  } else {
+    hasJobGrid += '<p class="notice">There are no employees who have job data at this moment.</p>'
+  }
+  return hasJobGrid
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
@@ -170,6 +220,31 @@ Util.checkAccountType = (req, res, next) => {
       next() // We are good so the route can just continue
     } else { // If you don't have permission sign in as the proper account_type
       req.flash("notice", "Access denied, please log in as 'Admin' or 'Employee'.")
+      res.redirect("/account/login")
+    }
+  } catch (err) {
+    // Redirect to login because token is not valid, or missing meaning they need to log back in
+    req.flash("notice", "Session expired. Please log in.")
+    res.clearCookie("jwt")
+    res.redirect("/account/login")
+  }
+}
+
+/* ****************************************
+* Middleware to check if the account is an admin using the token
+**************************************** */
+Util.checkIfAdmin = (req, res, next) => {
+  // Get the current jwt cookie
+  const token = req.cookies.jwt
+
+  try{
+    // Verify that the token is a valid token and it exsists
+    const accountData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+
+    if (accountData.account_type === 'Admin') {
+      next() // We are good so the route can just continue
+    } else { // If you don't have permission sign in as the proper account_type
+      req.flash("notice", "Access denied, please log in as an 'Admin' to access these pages.")
       res.redirect("/account/login")
     }
   } catch (err) {
