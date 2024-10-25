@@ -1,0 +1,47 @@
+<%# Content Heading %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<%# Flash Message %>
+<%- messages() %>
+
+<%# For Those Times When Errors Happen%>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<h3>Delete Job Data for <%= locals.account_firstname %> <%= locals.account_lastname %></h3>
+
+<div id="delete-employee-data" class="formDiv">
+    <form class="siteForms" action="/account/employee-delete" method="post">
+        <label for="employee_title">Job Title: </label>
+        <input id="employee_title" type="text" name="employee_title" required placeholder="Enter Job Title" value="<%= locals.employee_title %>" readonly>
+        <label for="employee_description">Job Description: </label>
+        <textarea id="employee_description" name="employee_description" required placeholder="Enter Job Description" readonly><%= locals.employee_description %></textarea>
+        <label for="employee_salary">Salary: </label>
+        <input id="employee_salary" type="number" name="employee_salary" required placeholder="Enter Salary" value="<%= locals.employee_salary %>" min="0" max="9999999" readonly>
+        <label for="employee_shiftstart">Shift Start Time: </label>
+        <input id="employee_shiftstart" type="text" name="employee_shiftstart" required placeholder="Enter Shift Start Time" value="<%= locals.employee_shiftstart %>" readonly>
+        <label for="employee_shiftend">Shift End Time: </label>
+        <input id="employee_shiftend" type="text" name="employee_shiftend" required placeholder="Enter Shift End Time" value="<%= locals.employee_shiftend %>" readonly>
+        <label for="employee_shiftdays">Work Days: </label>
+        <input id="employee_shiftdays" type="text" name="employee_shiftdays" required placeholder="Enter Shift Work Days" value="<%= locals.employee_shiftdays %>" readonly>
+        <p>Confirm Deletion - The delete is permanent and connot be undone.</p>
+        <input type="submit" class="submitButton" name="deleteEmployeeData" value="Delete Data">
+        <input type="hidden" name="employee_id"
+        <% if(locals.employee_id) {%> value="<%= locals.employee_id %>"
+        <% } %>>
+    </form>
+</div>
+
+<%# Go back to employee-management %>
+<div class="goBack">
+    <a href="/account/employee-management">Go Back</a>
+</div>

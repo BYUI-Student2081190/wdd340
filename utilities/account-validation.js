@@ -219,7 +219,6 @@ validate.checkUpdateDataPassword = async (req, res, next) => {
   const data = await accountModel.getAccountById(account_id)
   let errors = []
   errors = validationResult(req)
-  console.log(errors)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
     res.render("account/account-update", {
@@ -234,6 +233,170 @@ validate.checkUpdateDataPassword = async (req, res, next) => {
     return
   }
   next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to add-employee data
+ * ***************************** */
+validate.checkAddEmployeeData = async (req, res, next) => {
+  const { employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, account_id  } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    let data = await accountModel.getAccountById(account_id)
+    res.render("account/employee-add-data", {
+      title: "Add Employee Data",
+      nav,
+      errors,
+      account_firstname: data.account_firstname,
+      account_lastname: data.account_lastname,
+      employee_title,
+      employee_description,
+      employee_salary,
+      employee_shiftstart,
+      employee_shiftend,
+      employee_shiftdays,
+      account_id,
+    })
+    return
+  }
+  next()
+}
+
+/*  **********************************
+  *  Add Employee Data Validation Rules
+  * ********************************* */
+ validate.addEmployeeDataRules = () => {
+  return [
+    
+    // Validate employee_title
+    body("employee_title")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter a job title."),
+
+    body("employee_description")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter a job description."),
+
+    body("employee_salary")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the job salary.")
+    .isNumeric()
+    .withMessage("Salary must be a whole number, not a string or decimal.")
+    .custom(async (employee_salary) => {
+      if (!(employee_salary > 0 && employee_salary <= 9999999)) {
+        throw new Error("Salary must be between 0 and 9999999.")
+      }
+    }),
+
+    body("employee_shiftstart")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the starting shift time."),
+
+    body("employee_shiftend")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the ending time of the shift."),
+
+    body("employee_shiftdays")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the work days of the shift."),
+
+    body("account_id")
+    .custom(async (account_id) => {
+      // This is in place to double check to see if one already exsists in the
+      // db. This will almost never ever pop up unless a person is trying to add duplicate data to
+      // the table.
+      const isthere = await accountModel.checkEmployeeData(account_id)
+
+      if (isthere) {
+        throw new Error("This action could not be done because this account already has employee data associated with it. Please seek help from a site manager.")
+      }
+    }),
+  ]
+}
+
+/* ******************************
+ * Check data and return errors or continue to edit-employee data
+ * ***************************** */
+validate.checkEditEmployeeData = async (req, res, next) => {
+  const { employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, employee_id  } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    let employeeData = await accountModel.getEmployeeDataById(employee_id)
+    let data = await accountModel.getAccountById(employeeData.account_id)
+    res.render("account/employee-edit-data", {
+      title: "Edit Employee Data",
+      nav,
+      errors,
+      account_firstname: data.account_firstname,
+      account_lastname: data.account_lastname,
+      employee_title,
+      employee_description,
+      employee_salary,
+      employee_shiftstart,
+      employee_shiftend,
+      employee_shiftdays,
+      employee_id,
+    })
+    return
+  }
+  next()
+}
+
+/*  **********************************
+  *  Edit Employee Data Validation Rules
+  * ********************************* */
+validate.editEmployeeDataRules = () => {
+  return [
+    
+    // Validate employee_title
+    body("employee_title")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter a job title."),
+
+    body("employee_description")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter a job description."),
+
+    body("employee_salary")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the job salary.")
+    .isNumeric()
+    .withMessage("Salary must be a whole number, not a string or decimal.")
+    .custom(async (employee_salary) => {
+      if (!(employee_salary > 0 && employee_salary <= 9999999)) {
+        throw new Error("Salary must be between 0 and 9999999.")
+      }
+    }),
+
+    body("employee_shiftstart")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the starting shift time."),
+
+    body("employee_shiftend")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the ending time of the shift."),
+
+    body("employee_shiftdays")
+    .trim()
+    .notEmpty()
+    .withMessage("Please enter the work days of the shift."),
+
+  ]
 }
 
 module.exports = validate

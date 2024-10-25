@@ -125,6 +125,15 @@ input:required:valid
   padding-left: 0;
 }
 
+.message
+{
+  color: #1ee01e;
+  list-style: none;
+  font-style: italic;
+  font-size: medium;
+  padding-left: 0px;
+}
+
 .siteForms
 {
   display: flex;
@@ -234,6 +243,26 @@ input.submitButton
   margin-top: 20px;
 }
 
+#inventoryDisplay th
+{
+  text-align: left;
+  font-size: large;
+  padding-right: 5px;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+#inventoryDisplay tr:nth-child(even)
+{
+  background-color: #dedede;
+}
+
+#inventoryDisplay td
+{
+  text-align: left;
+  padding-right: 5px;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
 #inventoryDisplay a
 {
   margin-left: 10px;
@@ -249,6 +278,57 @@ input.submitButton
 .accountManDiv div
 {
   margin-top: 40px;
+}
+
+.employeeTable
+{
+  border: 2px solid #929292;
+  border-radius: 1px;
+}
+
+.employeeTable th
+{
+  text-align: left;
+  font-size: large;
+  padding-right: 5px;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.employeeTable tr:nth-child(even)
+{
+  background-color: #dedede;
+}
+
+.employeeTable td
+{
+  text-align: left;
+  font-family:'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+}
+
+.employeeTable a
+{
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+#view-employee-data
+{
+  margin-right: 15%;
+  margin-left: 15%;
+  border: 2px solid #221d52;
+  padding: 5px;
+}
+
+#view-employee-data h3
+{
+  margin-top: 1.5em;
+  border-top: 2px solid #221d52;
+}
+
+#view-employee-data #firstName
+{
+  margin-top: 0.5em;
+  border-top: 0px;
 }
 
 #updateAccountInfoTag

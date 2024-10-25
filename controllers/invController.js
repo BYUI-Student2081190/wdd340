@@ -65,6 +65,7 @@ invCont.buildAddClassificationView = async function (req, res, next) {
  * ************************** */
 invCont.addClassification = async function (req, res) {
   const { classification_name } = req.body
+  let nav = await utilities.getNav()
 
   const classResult = await invModel.addClassification(
     classification_name,
@@ -72,7 +73,7 @@ invCont.addClassification = async function (req, res) {
 
   if (classResult) {
     req.flash(
-      "notice",
+      "message",
       `Congratulations, ${classification_name} has been added!`
     )
     res.redirect("/inv/")
@@ -85,6 +86,7 @@ invCont.addClassification = async function (req, res) {
       title: "Add Classification",
       nav,
       errors: null,
+      classification_name,
     })
   }
 }
@@ -127,7 +129,7 @@ invCont.addInventoryItem = async function (req, res) {
 
   if (inventoryResult) {
     const itemName = inv_make + " " + inv_model
-    req.flash("notice", `Congradulations, ${itemName} was successfully added.`)
+    req.flash("message", `Congradulations, ${itemName} was successfully added.`)
     res.redirect("/inv/")
   } else {
     req.flash(
@@ -207,7 +209,7 @@ invCont.updateInventoryItem = async function (req, res) {
 
   if (updateResult) {
     const itemName = updateResult.inv_make + " " + updateResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
+    req.flash("message", `The ${itemName} was successfully updated.`)
     res.redirect("/inv/")
   } else {
     const classificationSelect = await utilities.buildClassificationList(classification_id)
@@ -265,7 +267,7 @@ invCont.deleteInventoryItem = async function (req, res) {
 
   if (deleteResult) {
     const itemName = inv_make + " " + inv_model
-    req.flash("notice", `The ${itemName} was successfully deleted.`)
+    req.flash("message", `The ${itemName} was successfully deleted.`)
     res.redirect("/inv/")
   } else {
     const itemName = `${inv_make} ${inv_model}`

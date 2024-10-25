@@ -8,7 +8,7 @@ async function registerAccount(account_firstname, account_lastname, account_emai
     const sql = "INSERT INTO public.account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
     return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
   } catch (error) {
-    return error.message
+    console.error("model error: " + error)
   }
 }
 
@@ -82,7 +82,7 @@ async function updateAccountInfo(account_id, account_firstname, account_lastname
     const sql = "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *"
     return await pool.query(sql, [account_firstname, account_lastname, account_email, account_id])
   } catch (error) {
-    return error.message
+    console.error("model error: " + error)
   }
 }
 
@@ -94,7 +94,7 @@ async function updateAccountPassword(account_id, account_password) {
     const sql = "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *"
     return await pool.query(sql, [account_password, account_id])
   } catch (error) {
-    return error.message
+    console.error("model error: " + error)
   }
 }
 
@@ -122,6 +122,23 @@ async function getEmployeeDataByAccountId(account_id) {
     ON e.account_id = a.account_id
     WHERE e.account_id = $1`
     let data = await pool.query(sql, [account_id])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Get accout data by employee_id
+* *************************** */
+async function getAccountDataByEmployeeId(employee_id) {
+  try {
+    const sql = 
+    `SELECT * FROM public.employee AS e
+    JOIN public.account AS a
+    ON e.account_id = a.account_id
+    WHERE e.employee_id = $1`
+    let data = await pool.query(sql, [employee_id])
     return data.rows[0]
   } catch (error) {
     return error.message
@@ -157,4 +174,68 @@ async function getEmployeeData() {
   }
 }
 
-module.exports = {registerAccount, updateAccountInfo, checkExistingEmail, getAccountByEmail, getAccountById, checkExistingEmailWithSameId, updateAccountPassword, getEmployeeAccounts, getEmployeeDataByAccountId, getEmployeeData, getAllEmployeeDataByAccountId}
+/* *****************************
+*   Get employee data by employee_id
+* *************************** */
+async function getEmployeeDataById(employee_id) {
+  try {
+    const sql = "SELECT * FROM public.employee WHERE employee_id = $1"
+    let data = await pool.query(sql, [employee_id])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Check to see if data already exsists for employee using account_id
+* *************************** */
+async function checkEmployeeData(account_id) {
+  try {
+    const sql = "SELECT * FROM public.employee WHERE account_id = $1"
+    const matching = await pool.query(sql, [account_id])
+    return matching.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Add employee data
+* *************************** */
+async function addEmployeeData(employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, account_id) {
+  try {
+    const sql = "INSERT INTO public.employee (employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, account_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *"
+    return await pool.query(sql, [employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, account_id])
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+/* *****************************
+*   Update employee data
+* *************************** */
+async function editEmployeeData(employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, employee_id) {
+  try {
+    const sql = "UPDATE public.employee SET employee_title = $1, employee_description = $2, employee_salary = $3, employee_shiftstart = $4, employee_shiftend = $5, employee_shiftdays = $6 WHERE employee_id = $7 RETURNING *"
+    const data = await pool.query(sql, [employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, employee_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+/* *****************************
+*   Delete employee data
+* *************************** */
+async function deleteEmployeeData(employee_id) {
+  try {
+    const sql = "DELETE FROM public.employee WHERE employee_id = $1"
+    const data = await pool.query(sql, [employee_id])
+    return data
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+module.exports = {registerAccount, updateAccountInfo, checkExistingEmail, getAccountByEmail, getAccountById, checkExistingEmailWithSameId, updateAccountPassword, getEmployeeAccounts, getEmployeeDataByAccountId, getEmployeeData, getAllEmployeeDataByAccountId, addEmployeeData, checkEmployeeData, getEmployeeDataById, getAccountDataByEmployeeId, editEmployeeData, deleteEmployeeData}

@@ -17,22 +17,7 @@
     </ul>
 <% } %>
 
-<div id="view-employee-data">
-        <h3>First Name: </h3>
-        <p><%= locals.account_firstname %></p>
-        <h3>Last Name: </h3>
-        <p><%= locals.account_lastname %></p>
-        <h3>Job Title: </h3>
-        <p><%= locals.employee_title %></p>
-        <h3>Job Description: </h3>
-        <p><%= locals.employee_description %></p>
-        <h3>Salary</h3>
-        <p><%= locals.employee_salary %></p>
-        <h3>Shift Time: </h3>
-        <p><%= locals.employee_shiftstart %> to <%= locals.employee_shiftend %></p>
-        <h3>Work Days: </h3>
-        <p><%= locals.employee_shiftdays %></p>
-</div>
+<%- employeeGrid %>
 
 <% if (locals.accountData.account_type === 'Employee') { %>
     <%# Go back to account-management %>

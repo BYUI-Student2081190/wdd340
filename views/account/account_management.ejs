@@ -35,7 +35,7 @@
     <% if (locals.accountData.account_type === 'Employee') { %>
         <div class="accountManDiv">
             <h3>Job Information: </h3>
-            <p><a href="/account/view-employee/<%= locals.accountData.account_id %>">Job Information</a></p>
+            <p><a href="/account/employee-view/<%= locals.accountData.account_id %>">Job Information</a></p>
         </div>
     <% } %>
     <% if (locals.accountData.account_type === 'Admin' || locals.accountData.account_type === 'Employee') { %>

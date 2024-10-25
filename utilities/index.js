@@ -162,9 +162,9 @@ Util.buildHasJobData = async function (hasJobData) {
     // Iterate over all the accounts in the array and put each in a new row
     hasJobData.forEach(function (account) {
       hasJobGrid += `<tr><td>${account.account_firstname} ${account.account_lastname}</td>`
-      hasJobGrid += `<td><a href='/account/employee-view/${account.account_id}' title='Click to view employee data'>Add Data</a></td>`
-      hasJobGrid += `<td><a href='/account/employee-edit/${account.account_id}' title='Click to edit employee data'>Add Data</a></td>`
-      hasJobGrid += `<td><a href='/account/employee-delete/${account.account_id}' title='Click to delete employee data'>Add Data</a></td></tr>`
+      hasJobGrid += `<td><a href='/account/employee-view/${account.account_id}' title='Click to view employee data'>View</a></td>`
+      hasJobGrid += `<td><a href='/account/employee-edit/${account.employee_id}' title='Click to edit employee data'>Edit</a></td>`
+      hasJobGrid += `<td><a href='/account/employee-delete/${account.employee_id}' title='Click to delete employee data'>Delete</a></td></tr>`
     })
     hasJobGrid += '</tbody>'
     hasJobGrid += '</table>'
@@ -172,6 +172,34 @@ Util.buildHasJobData = async function (hasJobData) {
     hasJobGrid += '<p class="notice">There are no employees who have job data at this moment.</p>'
   }
   return hasJobGrid
+}
+
+/* **************************************
+* Build the employee view HTML
+* ************************************ */
+Util.buildEmployeeGrid = async function(data) {
+  let employeeGrid = ""
+  if (data != null) {
+    employeeGrid += '<div id="view-employee-data">'
+    employeeGrid += '<h3 id="firstName">First Name: </h3>'
+    employeeGrid += '<p>' + data.account_firstname + '</p>'
+    employeeGrid += '<h3>Last Name: </h3>'
+    employeeGrid += '<p>' + data.account_lastname + '</p>'
+    employeeGrid += '<h3>Job Title: </h3>'
+    employeeGrid += '<p>' + data.employee_title + '</p>'
+    employeeGrid += '<h3>Job Description: </h3>'
+    employeeGrid += '<p>' + data.employee_description + '</p>'
+    employeeGrid += '<h3>Salary: </h3>'
+    employeeGrid += '<p>$' + new Intl.NumberFormat('en-US').format(data.employee_salary) + ' per hour.</p>'
+    employeeGrid += '<h3>Shift Time: </h3>'
+    employeeGrid += '<p>' + data.employee_shiftstart + ' to ' + data.employee_shiftend + '</p>'
+    employeeGrid += '<h3>Work Days: </h3>'
+    employeeGrid += '<p>' + data.employee_shiftdays + '</p>'
+    employeeGrid += '</div>'
+  } else {
+    employeeGrid += '<p class="notice">Your employer has not added your job info yet. Please check again later.</p>'
+  }
+  return employeeGrid
 }
 
 /* ****************************************

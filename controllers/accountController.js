@@ -97,6 +97,94 @@ async function buildEmployeeManagement(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver Employee Data view
+* *************************************** */
+async function buildEmployeeDataView(req, res, next) {
+  const account_id = parseInt(req.params.accountId)
+  let nav = await utilities.getNav()
+  const data = await accountModel.getEmployeeDataByAccountId(account_id)
+  const employeeGrid = await utilities.buildEmployeeGrid(data)
+
+  // Now render the view
+  res.render("account/employee-view-data", {
+    title: "Job Information",
+    nav,
+    errors: null,
+    employeeGrid,
+  })
+}
+
+/* ****************************************
+*  Deliver Employee Data Add view
+* *************************************** */
+async function buildEmployeeAddDataView(req, res, next) {
+  const account_id = parseInt(req.params.accountId)
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getAccountById(account_id)
+
+  // Now render the view
+  res.render("account/employee-add-data", {
+    title: "Add Employee Data",
+    nav,
+    errors: null,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_id: account_id,
+  })
+}
+
+/* ****************************************
+*  Deliver Employee Data Update view
+* *************************************** */
+async function buildEmployeeUpdateDataView(req, res, next) {
+  const employee_id = parseInt(req.params.employeeId)
+  let nav = await utilities.getNav()
+  const employeeData = await accountModel.getEmployeeDataById(employee_id)
+  const accountData = await accountModel.getAccountById(employeeData.account_id)
+
+  // Now render the view
+  res.render("account/employee-edit-data", {
+    title: "Edit Employee Data",
+    nav,
+    errors: null,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    employee_title: employeeData.employee_title,
+    employee_description: employeeData.employee_description,
+    employee_salary: employeeData.employee_salary,
+    employee_shiftstart: employeeData.employee_shiftstart,
+    employee_shiftend: employeeData.employee_shiftend,
+    employee_shiftdays: employeeData.employee_shiftdays,
+    employee_id: employeeData.employee_id,
+  })
+}
+
+/* ****************************************
+*  Deliver Employee Data Delete view
+* *************************************** */
+async function buildEmployeeDeleteDataView(req, res, next) {
+  const employee_id = parseInt(req.params.employeeId)
+  let nav = await utilities.getNav()
+  const employeeData = await accountModel.getAccountDataByEmployeeId(employee_id)
+
+  // Now render the view
+  res.render("account/employee-delete-data", {
+    title: "Delete Employee Data",
+    nav,
+    errors: null,
+    account_firstname: employeeData.account_firstname,
+    account_lastname: employeeData.account_lastname,
+    employee_title: employeeData.employee_title,
+    employee_description: employeeData.employee_description,
+    employee_salary: employeeData.employee_salary,
+    employee_shiftstart: employeeData.employee_shiftstart,
+    employee_shiftend: employeeData.employee_shiftend,
+    employee_shiftdays: employeeData.employee_shiftdays,
+    employee_id: employeeData.employee_id,
+  })
+}
+
+/* ****************************************
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
@@ -274,6 +362,121 @@ async function accountUpdatePassword(req, res) {
 }
 
 /* ****************************************
+*  Process Employee Data
+* *************************************** */
+async function addEmployeeData(req, res, next) {
+  let nav = await utilities.getNav()
+  const { employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, account_id } = req.body
+  const data = await accountModel.getAccountById(account_id)
+
+  // Add it to the db
+  const result = await accountModel.addEmployeeData(
+    employee_title,
+    employee_description,
+    employee_salary,
+    employee_shiftstart,
+    employee_shiftend,
+    employee_shiftdays,
+    account_id
+  )
+
+  // Result of if we failed or succeeded
+  if (result) {
+    req.flash("message", `Successfully added employee data to ${data.account_firstname}'s account.`)
+    res.redirect("/account/employee-management")
+  } else {
+    req.flash("notice", "Sorry the information could not be added.")
+    res.status(501).render("account/employee-add-data", {
+      title: "Add Employee Data",
+      nav,
+      errors: null,
+      account_firstname: data.account_firstname,
+      account_lastname: data.account_lastname,
+      employee_title,
+      employee_description,
+      employee_salary,
+      employee_shiftstart,
+      employee_shiftend,
+      employee_shiftdays,
+      account_id,
+    })
+  }
+}
+
+/* ****************************************
+*  Update Employee Data
+* *************************************** */
+async function editEmployeeData(req, res, next) {
+  let nav = await utilities.getNav()
+  const { employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, employee_id } = req.body
+  const accountData = await accountModel.getAccountDataByEmployeeId(employee_id)
+
+  // Update the db
+  const updateResult = await accountModel.editEmployeeData(
+    employee_title, 
+    employee_description, 
+    employee_salary, 
+    employee_shiftstart, 
+    employee_shiftend, 
+    employee_shiftdays, 
+    employee_id)
+  
+  if (updateResult) {
+    req.flash("message", `Successfully updated ${accountData.account_firstname}'s job data.`)
+    res.redirect("/account/employee-management")
+  } else {
+    req.flash("notice", `Sorry ${accountData.account_firstname}'s data could not be updated.`)
+    res.status(501).render("account/employee-edit-data", {
+      title: "Edit Employee Data",
+      nav,
+      errors: null,
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+      employee_title,
+      employee_description,
+      employee_salary,
+      employee_shiftstart,
+      employee_shiftend,
+      employee_shiftdays,
+      employee_id,
+    })
+  }
+}
+
+/* ****************************************
+*  Delete Employee Data
+* *************************************** */
+async function deleteEmployeeData(req, res, next) {
+  let nav = await utilities.getNav()
+  const { employee_title, employee_description, employee_salary, employee_shiftstart, employee_shiftend, employee_shiftdays, employee_id } = req.body
+  const data = await accountModel.getAccountDataByEmployeeId(employee_id)
+
+  // Delete the data from the db
+  const deleteResult = await accountModel.deleteEmployeeData(employee_id)
+
+  if (deleteResult) {
+    req.flash("message", `Successfully deleted ${data.account_firstname}'s job data.`)
+    res.redirect("/account/employee-management")
+  } else {
+    req.flash("notice", `Sorry ${data.account_firstname}'s data could not be deleted.`)
+    res.status(501).render("account/employee-delete-data", {
+      title: "Delete Employee Data",
+      nav,
+      errors: null,
+      account_firstname: data.account_firstname,
+      account_lastname: data.account_lastname,
+      employee_title,
+      employee_description,
+      employee_salary,
+      employee_shiftstart,
+      employee_shiftend,
+      employee_shiftdays,
+      employee_id,
+    })
+  }
+}
+
+/* ****************************************
 *  Log out
 * *************************************** */
 async function accountLogout(req, res, next) {
@@ -283,4 +486,4 @@ async function accountLogout(req, res, next) {
   res.redirect("/")
 }
 
-module.exports = {buildLogin, buildRegistration, buildAccountManagement, buildAccountUpdate, registerAccount, accountLogin, accountUpdateInformation, accountUpdatePassword, accountLogout, buildEmployeeManagement}
+module.exports = {buildLogin, buildRegistration, buildAccountManagement, buildAccountUpdate, registerAccount, accountLogin, accountUpdateInformation, accountUpdatePassword, accountLogout, buildEmployeeManagement, buildEmployeeAddDataView, addEmployeeData, buildEmployeeUpdateDataView, editEmployeeData, buildEmployeeDeleteDataView, deleteEmployeeData, buildEmployeeDataView}

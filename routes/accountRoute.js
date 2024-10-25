@@ -16,9 +16,15 @@ router.get("/register", utilities.handleErrors(accController.buildRegistration))
 // Route to update account view
 router.get("/update-information/:accountId", utilities.handleErrors(accController.buildAccountUpdate));
 // Route to view employee data
-router.get("/view-employee/:accountId", utilities.checkAccountType, utilities.handleErrors(accController.buildEmployeeDataView));
+router.get("/employee-view/:accountId", utilities.checkAccountType, utilities.handleErrors(accController.buildEmployeeDataView));
 // Route to employee management
 router.get("/employee-management", utilities.checkIfAdmin, utilities.handleErrors(accController.buildEmployeeManagement));
+// Route to build employee data add view
+router.get("/employee-add/:accountId", utilities.checkIfAdmin, utilities.handleErrors(accController.buildEmployeeAddDataView));
+// Route to build employee data update view
+router.get("/employee-edit/:employeeId", utilities.checkIfAdmin, utilities.handleErrors(accController.buildEmployeeUpdateDataView));
+// Route to build employee data delete view
+router.get("/employee-delete/:employeeId", utilities.checkIfAdmin, utilities.handleErrors(accController.buildEmployeeDeleteDataView));
 
 // Process the registration data
 router.post(
@@ -48,5 +54,24 @@ router.post(
     regValidate.checkUpdateDataPassword,
     utilities.handleErrors(accController.accountUpdatePassword)
 );
+// Process the add employee data post
+router.post(
+    "/employee-add",
+    regValidate.addEmployeeDataRules(),
+    regValidate.checkAddEmployeeData,
+    utilities.handleErrors(accController.addEmployeeData)
+);
+// Process the update employee data post
+router.post(
+    "/employee-edit",
+    regValidate.editEmployeeDataRules(),
+    regValidate.checkEditEmployeeData,
+    utilities.handleErrors(accController.editEmployeeData)
+);
+// Process the delete employee data post
+router.post(
+    "/employee-delete",
+    utilities.handleErrors(accController.deleteEmployeeData)
+)
 
 module.exports = router;

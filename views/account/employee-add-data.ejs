@@ -20,13 +20,14 @@
 <h3>Add Job Data to <%= locals.account_firstname %> <%= locals.account_lastname %></h3>
 
 <div id="add-employee-data" class="formDiv">
-    <form class="siteForms" action="/account/add-employee-data" method="post">
+    <form class="siteForms" action="/account/employee-add" method="post">
         <label for="employee_title">Job Title: </label>
         <input id="employee_title" type="text" name="employee_title" required placeholder="Enter Job Title" value="<%= locals.employee_title %>">
         <label for="employee_description">Job Description: </label>
         <textarea id="employee_description" name="employee_description" required placeholder="Enter Job Description"><%= locals.employee_description %></textarea>
         <label for="employee_salary">Salary: </label>
         <input id="employee_salary" type="number" name="employee_salary" required placeholder="Enter Salary" value="<%= locals.employee_salary %>" min="0" max="9999999">
+        <span>Remeber: Salary reflects how much someone makes in an hour. Example: $25 an Hour.</span>
         <label for="employee_shiftstart">Shift Start Time: </label>
         <input id="employee_shiftstart" type="text" name="employee_shiftstart" required placeholder="Enter Shift Start Time" value="<%= locals.employee_shiftstart %>">
         <label for="employee_shiftend">Shift End Time: </label>
